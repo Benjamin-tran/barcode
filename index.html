@@ -6,6 +6,15 @@
 <title>Barcode Generator</title>
 <!-- Füge die JsBarcode-Bibliothek hinzu -->
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<style>
+  /* Zentriert das SVG-Element */
+  #barcode-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Setzt die Höhe auf die volle Bildschirmhöhe */
+  }
+</style>
 </head>
 <body>
 <h1>Barcode Generator</h1>
@@ -31,10 +40,12 @@
   <option value="MSI1110">MSI1110</option>
   <option value="pharmacode">Pharmacode</option>
 </select>
+<br> 
 <button onclick="generateBarcodes()">Barcodes generieren</button>
-
-<!-- Platzhalter für den Barcode -->
-<svg id="barcode"></svg>
+<br> 
+<div id="barcode-container">
+  <svg id="barcode"></svg>
+</div>
 
 <script>
 var barcodeValues = [];
