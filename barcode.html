@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barcode Generator</title>
+<!-- Füge die JsBarcode-Bibliothek hinzu -->
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+<h1>Barcode Generator</h1>
+<!-- Eingabefeld für die Barcode-Werte -->
+<label for="barcodeInput">Barcode-Werte eingeben (durch Komma getrennt):</label>
+<input type="text" id="barcodeInput">
+<label for="barcodeType">Barcode-Art auswählen:</label>
+<select id="barcodeType">
+  <option value="CODE128">CODE128 auto</option>
+  <option value="CODE128A">CODE128 A</option>
+  <option value="CODE128B">CODE128 B</option>
+  <option value="CODE128C">CODE128 C</option>
+  <option value="EAN13">EAN13</option>
+  <option value="EAN8">EAN8</option>
+  <option value="UPC">UPC</option>
+  <option value="CODE39">CODE39</option>
+  <option value="ITF14">ITF14</option>
+  <option value="ITF">ITF</option>
+  <option value="MSI">MSI</option>
+  <option value="MSI10">MSI10</option>
+  <option value="MSI11">MSI11</option>
+  <option value="MSI1010">MSI1010</option>
+  <option value="MSI1110">MSI1110</option>
+  <option value="pharmacode">Pharmacode</option>
+</select>
+<button onclick="generateBarcodes()">Barcodes generieren</button>
+
+<!-- Platzhalter für den Barcode -->
+<svg id="barcode"></svg>
+
+<script>
+var barcodeValues = [];
+var currentIndex = 0;
+var selectedBarcodeType = "CODE128"; // Standard-Barcodetyp
+
+function generateBarcodes() {
+  var input = document.getElementById("barcodeInput").value;
+  barcodeValues = input.split(",").map(value => value.trim());
+  currentIndex = 0;
+  selectedBarcodeType = document.getElementById("barcodeType").value;
+  generateBarcode();
+}
+
+function generateBarcode() {
+  var barcodeValue = barcodeValues[currentIndex];
+  JsBarcode("#barcode", barcodeValue, {
+    format: selectedBarcodeType,
+    displayValue: true,
+  });
+}
+
+// Funktion, um auf Klick-Ereignis zu reagieren
+document.addEventListener("click", function() {
+  currentIndex = (currentIndex + 1) % barcodeValues.length;
+  generateBarcode();
+});
+
+// Standardwerte beim Laden der Seite
+generateBarcodes();
+</script>
+</body>
+</html>
